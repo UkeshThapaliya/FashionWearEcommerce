@@ -1,5 +1,6 @@
 import 'package:fashionwear_ecommerce/views/buyers/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +12,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'FashionWear Ecommerce',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MainScreen(),
+      theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Brand-Bold'),
+      home: MainScreen(),
     );
   }
 }
