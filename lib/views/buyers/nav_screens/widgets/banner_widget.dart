@@ -18,7 +18,7 @@ class _BannerWidgetState extends State<BannerWidget> {
         .then((QuerySnapshot querySanpshot) {
       querySanpshot.docs.forEach((doc) {
         setState(() {
-          _bannerImage.add(doc['images']);
+          _bannerImage.add(doc['image']);
         });
       });
     });
