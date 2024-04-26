@@ -1,18 +1,27 @@
-allprojects {
+// Correct placement for buildscript dependencies
+buildscript {
     repositories {
         google()
         mavenCentral()
     }
-    dependencies{
-        classpath   'com.google.gms:google-services:4.4.1'  
+    dependencies {
+        classpath 'com.google.gms:google-services:4.4.1'
+        classpath 'com.android.tools.build:gradle:3.5.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
     }
 }
 
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
+
+    // Makes sure that the app configuration is evaluated before the subprojects
     project.evaluationDependsOn(':app')
 }
 
