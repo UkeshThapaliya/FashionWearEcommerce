@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:fashionwear_ecommerce/controllers/auth_controller.dart';
 import 'package:fashionwear_ecommerce/utils/show_snackBar.dart';
 import 'package:fashionwear_ecommerce/views/buyers/auth/login_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -22,19 +26,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? password;
   bool _isloading = false;
 
+  Uint8List? _image;
+
   _signUpUser() async {
     setState(() {
       _isloading = true;
     });
     if (_formKey.currentState!.validate()) {
       await _authController
-          .signUpUsers(email!, fullName!, phoneNumber!, password!)
-          .whenComplete(
-            () => setState(() {
-              _formKey.currentState!.reset();
-              _isloading = false;
-            }),
-          );
+          .signUpUsers(email!, fullName!, phoneNumber!, password!, _image)
+          .whenComplete(() {
+        setState(() {
+          _formKey.currentState!.reset();
+          _isloading = false;
+        });
+      });
       return showSnack(
           context, 'Congratulations An Account Has Been Created For You');
     } else {
@@ -43,6 +49,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
       return showSnack(context, 'Please Fields must not be empty');
     }
+  }
+
+//picking image from gallery
+  selectGalleryImage() async {
+    Uint8List im = await _authController.pickProfileImage(ImageSource.gallery);
+
+    setState(() {
+      _image = im;
+    });
+  }
+
+  //picking image from camera
+  selectCameraImage() async {
+    Uint8List im = await _authController.pickProfileImage(ImageSource.camera);
+
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -59,9 +83,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   'Create Customer"s Account',
                   style: TextStyle(fontSize: 20),
                 ),
-                CircleAvatar(
-                  radius: 64,
-                  backgroundColor: Colors.green,
+                Stack(
+                  children: [
+                    _image != null
+                        ? CircleAvatar(
+                            radius: 64,
+                            backgroundColor: Colors.green,
+                            backgroundImage: MemoryImage(_image!),
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundColor: Colors.green,
+                            backgroundImage: NetworkImage(
+                                'https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg'),
+                          ),
+                    Positioned(
+                      right: 40,
+                      top: 5,
+                      child: IconButton(
+                        onPressed: () {
+                          selectGalleryImage();
+                        },
+                        icon: Icon(CupertinoIcons.photo, color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(14.0),

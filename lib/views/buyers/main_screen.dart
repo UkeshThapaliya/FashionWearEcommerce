@@ -29,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
         onTap: (value) {
@@ -53,24 +54,28 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/shop.svg',
+              width: 20,
             ),
             label: 'Store',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/cart.svg',
+              width: 20,
             ),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/search.svg',
+              width: 20,
             ),
             label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/account.svg',
+              width: 20,
             ),
             label: 'Account',
           ),

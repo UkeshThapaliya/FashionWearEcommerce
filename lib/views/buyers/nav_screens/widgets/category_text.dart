@@ -8,6 +8,7 @@ class CategoryText extends StatelessWidget {
     'Bottom Wear',
     'FootWear'
   ];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,44 +22,30 @@ class CategoryText extends StatelessWidget {
               fontSize: 19,
             ),
           ),
-          Container(
-            height: 40,
+          SizedBox(height: 8), // Add some spacing below the text
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _categorylabel.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ActionChip(
-                                backgroundColor: Colors.green,
-                                onPressed: () {},
-                                label: Center(
-                                  child: Text(
-                                    _categorylabel[index],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )),
-                          );
-                        },
+                for (var category in _categorylabel)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ActionChip(
+                      backgroundColor: Colors.green,
+                      onPressed: () {},
+                      label: Text(
+                        category,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.arrow_forward_ios),
-                    ),
-                  ],
-                ),
+                  ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

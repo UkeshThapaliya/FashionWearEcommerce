@@ -17,7 +17,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late String password;
 
+  bool _isLoading = false;
+
   _loginUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
     if (_formKey.currentState!.validate()) {
       String res = await _authController.loginUsers(email, password);
       if (res == 'Success') {
@@ -29,6 +34,9 @@ class _LoginScreenState extends State<LoginScreen> {
         return showSnack(context, res);
       }
     } else {
+      setState(() {
+        _isLoading = false;
+      });
       return showSnack(
         context,
         'Please feilds must not be empty',
@@ -75,6 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
               padding: const EdgeInsets.all(13.0),
               child: TextFormField(
+                obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Password must not be empty';
@@ -105,15 +114,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 3,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? CircularProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 3,
+                          ),
+                        ),
                 ),
               ),
             ),
