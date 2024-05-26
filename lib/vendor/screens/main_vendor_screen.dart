@@ -1,8 +1,8 @@
 import 'package:fashionwear_ecommerce/vendor/screens/earning_screen.dart';
 import 'package:fashionwear_ecommerce/vendor/screens/edit_product_screen.dart';
 import 'package:fashionwear_ecommerce/vendor/screens/upload_screen.dart';
+import 'package:fashionwear_ecommerce/vendor/screens/vendor_logout_screen.dart';
 import 'package:fashionwear_ecommerce/vendor/screens/vendor_order_screen.dart';
-import 'package:fashionwear_ecommerce/vendor/views/auth/vendor_auth_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _MainvendorScreenState extends State<MainvendorScreen> {
     UploadScreen(),
     EditProductScreen(),
     VenderOrderScreen(),
-    VendorAuthScreen(),
+    VendorLogoutScreen(),
   ];
 
   @override
