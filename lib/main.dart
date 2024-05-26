@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fashionwear_ecommerce/vendor/screens/main_vendor_screen.dart';
 import 'package:fashionwear_ecommerce/views/buyers/auth/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +30,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FashionWear Ecommerce',
-      theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Brand-Bold'),
-      home: RegisterScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        fontFamily: 'Brand-Bold',
+      ),
+      // home: BuyerRegisterScreen(),
+      home: MainvendorScreen(),
     );
   }
 }

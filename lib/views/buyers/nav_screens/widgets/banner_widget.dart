@@ -50,15 +50,15 @@ class _BannerWidgetState extends State<BannerWidget> {
                   imageUrl: _bannerImage[index],
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Shimmer(
-                    duration: Duration(seconds: 3), //Default value
+                    duration: Duration(seconds: 10), //Default value
                     interval: Duration(
-                        seconds: 5), //Default value: Duration(seconds: 0)
+                        seconds: 10), //Default value: Duration(seconds: 0)
                     color: Colors.white, //Default value
                     colorOpacity: 0, //Default value
                     enabled: true, //Default value
                     direction: ShimmerDirection.fromLTRB(), //Default Value
                     child: Container(
-                      color: Colors.deepPurple,
+                      color: Colors.white,
                     ),
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
