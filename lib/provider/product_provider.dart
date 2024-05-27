@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 class ProductProvider with ChangeNotifier {
   Map<String, dynamic> productData = {};
 
-  getFormData(
-      {String? productName,
-      double? productPrice,
-      int? quantity,
-      String? category,
-      String? description,
-      DateTime? scheduleDate,
-      List<String>? imageUrlList,
-      bool? chargeShipping,
-      int? shippingCharge,
-      String? brandName,
-      List<String>? sizeList}) {
+  getFormData({
+    String? productName,
+    double? productPrice,
+    int? quantity,
+    String? category,
+    String? description,
+    DateTime? scheduleDate,
+    List<String>? imageUrlList,
+    bool? chargeShipping,
+    int? shippingCharge,
+    String? brandName,
+    List<String>? sizeList,
+  }) {
     if (productName != null) {
       productData['productName'] = productName;
     }
@@ -46,7 +47,13 @@ class ProductProvider with ChangeNotifier {
       productData['brandName'] = brandName;
     }
     if (sizeList != null) {
-      productData['sizelist'] = sizeList;
+      productData['sizeList'] = sizeList; // Ensure correct field name
     }
+    notifyListeners();
+  }
+
+  clearData() {
+    productData.clear();
+    notifyListeners();
   }
 }

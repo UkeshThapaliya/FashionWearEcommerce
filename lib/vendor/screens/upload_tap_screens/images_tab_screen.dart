@@ -78,14 +78,16 @@ class _ImagesTabScreenState extends State<ImagesTabScreen>
                   await ref.getDownloadURL().then((value) {
                     setState(() {
                       _imageUrlList.add(value);
-                      _productProvider.getFormData(imageUrlList: _imageUrlList);
-                      EasyLoading.showSuccess('Uploaded');
                     });
                   });
                 });
               }
+              setState(() {
+                _productProvider.getFormData(imageUrlList: _imageUrlList);
+                EasyLoading.showSuccess('Uploaded');
+              });
             },
-            child: _image.isNotEmpty ? Text('Upload') : Text(''),
+            child: Text('Upload'),
           ),
         ],
       ),

@@ -11,12 +11,9 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  final TextEditingController _sizeControllerr = TextEditingController();
-
+  final TextEditingController _sizeController = TextEditingController();
   bool _entered = false;
   List<String> _sizeList = [];
-
-  bool _isSave = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +27,9 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
           TextFormField(
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please Enter your brand name';
-              } else {
-                return null;
+                return 'Please enter your brand name';
               }
+              return null;
             },
             onChanged: (value) {
               _productProvider.getFormData(brandName: value);
@@ -42,9 +38,7 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
               labelText: 'Brand',
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -52,16 +46,11 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
                 child: Container(
                   width: 100,
                   child: TextFormField(
-                    // validator: (value) {
-                    //   if (value!.isEmpty) {
-                    //     return 'Please enter size';
-                    //   } else {
-                    //     return null;
-                    //   }
-                    // },
-                    controller: _sizeControllerr,
+                    controller: _sizeController,
                     onChanged: (value) {
-                      _entered = true;
+                      setState(() {
+                        _entered = value.isNotEmpty;
+                      });
                     },
                     decoration: InputDecoration(
                       labelText: 'Size',
@@ -69,19 +58,21 @@ class _AttributesTabScreenState extends State<AttributesTabScreen>
                   ),
                 ),
               ),
-              // _entered == true?
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  setState(() {
-                    _sizeList.add(_sizeControllerr.text);
-                    _sizeControllerr.clear();
-                  });
-                  print(_sizeList);
-                },
-                child: Text('Add'),
-              )
-              // : Text(''),
+              _entered
+                  ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      onPressed: () {
+                        setState(() {
+                          _sizeList.add(_sizeController.text);
+                          _sizeController.clear();
+                          _entered = false;
+                        });
+                        print(_sizeList);
+                      },
+                      child: Text('Add'),
+                    )
+                  : SizedBox.shrink(),
             ],
           ),
           if (_sizeList.isNotEmpty)
