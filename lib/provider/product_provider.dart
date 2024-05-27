@@ -8,7 +8,13 @@ class ProductProvider with ChangeNotifier {
       double? productPrice,
       int? quantity,
       String? category,
-      String? description}) {
+      String? description,
+      DateTime? scheduleDate,
+      List<String>? imageUrlList,
+      bool? chargeShipping,
+      int? shippingCharge,
+      String? brandName,
+      List<String>? sizeList}) {
     if (productName != null) {
       productData['productName'] = productName;
     }
@@ -23,6 +29,24 @@ class ProductProvider with ChangeNotifier {
     }
     if (description != null) {
       productData['description'] = description;
+    }
+    if (scheduleDate != null) {
+      productData['scheduleDate'] = scheduleDate;
+    }
+    if (imageUrlList != null) {
+      productData['imageUrlList'] = imageUrlList;
+    }
+    if (chargeShipping != null) {
+      productData['chargeShipping'] = chargeShipping;
+    }
+    if (shippingCharge != null) {
+      productData['shippingCharge'] = shippingCharge;
+    }
+    if (brandName != null) {
+      productData['brandName'] = brandName;
+    }
+    if (sizeList != null) {
+      productData['sizelist'] = sizeList;
     }
   }
 }

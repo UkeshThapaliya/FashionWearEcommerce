@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CategoryText extends StatelessWidget {
   final List<String> _categorylabel = [
-    'Tops',
+    'Top Wear ',
     'OutWear',
     'Formal Wear',
     'Bottom Wear',

@@ -2,13 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionwear_ecommerce/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class GeneralScreen extends StatefulWidget {
   @override
   State<GeneralScreen> createState() => _GeneralScreenState();
 }
 
-class _GeneralScreenState extends State<GeneralScreen> {
+class _GeneralScreenState extends State<GeneralScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final List<String> _categoryList = [];
 
@@ -31,8 +35,16 @@ class _GeneralScreenState extends State<GeneralScreen> {
     super.initState();
   }
 
+  String formatedDate(date) {
+    final outPutdateFormate = DateFormat('dd/MM/yyyy');
+
+    final outPutDate = outPutdateFormate.format(date);
+    return outPutDate;
+  }
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final ProductProvider _productProvider =
         Provider.of<ProductProvider>(context);
     return Scaffold(
@@ -42,6 +54,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
           child: Column(
             children: [
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter your product name';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(productName: value);
                 },
@@ -53,6 +72,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 20,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter your product price';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(
                       productPrice: double.parse(value));
@@ -65,6 +91,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 20,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter your product quantuty';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(
                     quantity: int.parse(value),
@@ -93,6 +126,13 @@ class _GeneralScreenState extends State<GeneralScreen> {
                 height: 20,
               ),
               TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Add some discription about product';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   _productProvider.getFormData(description: value);
                 },
@@ -114,12 +154,22 @@ class _GeneralScreenState extends State<GeneralScreen> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime.now(),
                         lastDate: DateTime(5000),
-                      );
+                      ).then((value) {
+                        setState(() {
+                          _productProvider.getFormData(scheduleDate: value);
+                        });
+                      });
                     },
                     child: Text('Schedule'),
                   ),
+                  if (_productProvider.productData['scheduleDate'] != null)
+                    Text(
+                      formatedDate(
+                        _productProvider.productData['scheduleDate'],
+                      ),
+                    ),
                 ],
-              )
+              ),
             ],
           ),
         ),
