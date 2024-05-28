@@ -2,14 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionwear_ecommerce/views/buyers/productDetail/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
-class HomeProductWidget extends StatelessWidget {
-  final String categoryName;
-  const HomeProductWidget({super.key, required this.categoryName});
+class MainProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _productStream = FirebaseFirestore.instance
         .collection('products')
-        .where('category', isEqualTo: categoryName)
         .where('approved', isEqualTo: true)
         .snapshots();
 
@@ -21,13 +18,23 @@ class HomeProductWidget extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return Center(
+            child: LinearProgressIndicator(
+              backgroundColor: Colors.green,
+            ),
+          );
         }
 
         return Container(
-          height: 270,
-          child: ListView.separated(
-              scrollDirection: Axis.horizontal,
+          height: 250,
+          child: GridView.builder(
+              itemCount: snapshot.data!.size,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                childAspectRatio: 200 / 300,
+              ),
               itemBuilder: (context, index) {
                 final productData = snapshot.data!.docs[index];
                 return GestureDetector(
@@ -80,9 +87,7 @@ class HomeProductWidget extends StatelessWidget {
                     ),
                   ),
                 );
-              },
-              separatorBuilder: (context, _) => SizedBox(width: 15),
-              itemCount: snapshot.data!.docs.length),
+              }),
         );
       },
     );

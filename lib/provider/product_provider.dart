@@ -4,6 +4,7 @@ class ProductProvider with ChangeNotifier {
   Map<String, dynamic> productData = {};
 
   getFormData({
+    String? productId,
     String? productName,
     double? productPrice,
     int? quantity,
@@ -15,7 +16,12 @@ class ProductProvider with ChangeNotifier {
     int? shippingCharge,
     String? brandName,
     List<String>? sizeList,
+    String? vendorId,
+    bool? approved,
   }) {
+    if (productId != null) {
+      productData['productId'] = productName;
+    }
     if (productName != null) {
       productData['productName'] = productName;
     }
@@ -31,12 +37,13 @@ class ProductProvider with ChangeNotifier {
     if (description != null) {
       productData['description'] = description;
     }
-    if (scheduleDate != null) {
-      productData['scheduleDate'] = scheduleDate;
-    }
     if (imageUrlList != null) {
       productData['imageUrlList'] = imageUrlList;
     }
+    if (scheduleDate != null) {
+      productData['scheduleDate'] = scheduleDate;
+    }
+
     if (chargeShipping != null) {
       productData['chargeShipping'] = chargeShipping;
     }
@@ -48,6 +55,12 @@ class ProductProvider with ChangeNotifier {
     }
     if (sizeList != null) {
       productData['sizeList'] = sizeList; // Ensure correct field name
+    }
+    if (vendorId != null) {
+      productData['vendorId'] = vendorId; // Ensure correct field name
+    }
+    if (approved != null) {
+      productData['approved'] = approved; // Ensure correct field name
     }
     notifyListeners();
   }

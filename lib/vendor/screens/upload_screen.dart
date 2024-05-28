@@ -79,7 +79,7 @@ class UploadScreen extends StatelessWidget {
                         _productProvider.productData['shippingCharge'],
                     'brandName': _productProvider.productData['brandName'],
                     'sizeList': _productProvider.productData['sizeList'],
-                    'vendorId': FirebaseAuth.instance.currentUser!.uid,
+                    'vendorId': FirebaseAuth.instance.currentUser?.uid,
                     'approved': false,
                   }).whenComplete(() {
                     EasyLoading.showSuccess('Done');
