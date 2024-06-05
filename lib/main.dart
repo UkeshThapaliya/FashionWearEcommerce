@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:fashionwear_ecommerce/provider/cart_provider.dart';
 import 'package:fashionwear_ecommerce/provider/product_provider.dart';
-import 'package:fashionwear_ecommerce/vendor/views/auth/vendor_auth_screen.dart';
 import 'package:fashionwear_ecommerce/views/buyers/auth/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

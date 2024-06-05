@@ -116,7 +116,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Product Sescription',
+                    'Product Description',
                     style: TextStyle(color: Colors.green),
                   ),
                   Text(
